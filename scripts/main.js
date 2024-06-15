@@ -42,3 +42,9 @@ function createElementWithClass(elementTag , className) {
     element.classList.add(className);
     return element;
 }
+
+
+// Random number generator between max and min (included)
+function randomNumberGenerator(min , max) {
+    return Math.floor((Math.random()) * (max - min + 1)) + min;
+}
