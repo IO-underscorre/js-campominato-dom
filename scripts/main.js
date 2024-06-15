@@ -36,6 +36,7 @@ function createLandfield (minefieldElement , numberOfSectors) {
     
     for (i = 0 ; i < numberOfSectors ; i++) {
         minefieldSector = createElementWithClass('div' , 'minefield-sector');
+        minefieldSector.setAttribute('data-sector-index' , i + 1);
 
         minefieldSector.addEventListener('click' , function () {
             this.classList.add('checked');
