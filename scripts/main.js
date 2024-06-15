@@ -69,8 +69,8 @@ function createLandfield (minefieldElement , numberOfSectors) {
 
     minefield.innerHTML = '';
     
-    for (i = 0 ; i < numberOfSectors ; i++) {
-        minefieldSector = createElementWithClass('div' , 'minefield-sector');
+    for (let i = 0 ; i < numberOfSectors ; i++) {
+        const minefieldSector = createElementWithClass('div' , 'minefield-sector');
         minefieldSector.setAttribute('data-sector-index' , i + 1);
 
         minefieldSector.addEventListener('click' , function () {
