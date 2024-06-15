@@ -17,10 +17,20 @@ difficultyForm.addEventListener('submit' , function () {
 });
 
 
-// Append a number of landfield sector's div to a minefield contrainer
+//  Clear elements inside a minefield contrainer, then append a number of landfield sector's div
 function createLandfield (minefieldElement , numberOfSectors) {
     const numberOfRowsAndColumns = Math.sqrt(numberOfSectors);
     minefieldElement.style.gridTemplate = `repeat(${numberOfRowsAndColumns} , 1fr) / repeat(${numberOfRowsAndColumns} , 1fr)`;
+
+    const bombPositions = [];
+
+    while(bombPositions.length < 16) {
+        randomNumber = randomNumberGenerator(1 , numberOfSectors);
+
+        if(!bombPositions.includes(randomNumber)) {
+            bombPositions.push(randomNumber);
+        }
+    }
 
     minefield.innerHTML = '';
     
