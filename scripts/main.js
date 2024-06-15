@@ -39,7 +39,13 @@ function createLandfield (minefieldElement , numberOfSectors) {
         minefieldSector.setAttribute('data-sector-index' , i + 1);
 
         minefieldSector.addEventListener('click' , function () {
-            this.classList.add('checked');
+            const self = this;
+
+            self.classList.add('checked');
+
+            if(bombPositions.includes(parseInt(self.dataset.sectorIndex))) {
+                self.classList.add('exploded');
+            }
         });
 
         minefieldElement.append(minefieldSector);
