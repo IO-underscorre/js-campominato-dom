@@ -23,12 +23,47 @@ function createLandfield (minefieldElement , numberOfSectors) {
     minefieldElement.style.gridTemplate = `repeat(${numberOfRowsAndColumns} , 1fr) / repeat(${numberOfRowsAndColumns} , 1fr)`;
 
     const bombPositions = [];
+    const proxyBombsCounters = new Array(numberOfSectors).fill(0);
 
     while(bombPositions.length < 16) {
-        randomNumber = randomNumberGenerator(1 , numberOfSectors);
+        let randomBombSectorIndex = randomNumberGenerator(1 , numberOfSectors);
 
-        if(!bombPositions.includes(randomNumber)) {
-            bombPositions.push(randomNumber);
+        if(!bombPositions.includes(randomBombSectorIndex)) {
+            bombPositions.push(randomBombSectorIndex);
+
+            randomBombSectorIndex--;
+
+            const topOfBombSector = randomBombSectorIndex - numberOfRowsAndColumns , bottomOfBombSector = randomBombSectorIndex + numberOfRowsAndColumns , leftOfBombSector = randomBombSectorIndex - 1 , rightOfBombSector = randomBombSectorIndex + 1;
+            const topLeftOfBombSector = topOfBombSector - 1 , topRightOfBombSector = topOfBombSector + 1 , bottomLeftOfBombSector = bottomOfBombSector - 1 , bottomRightOfBombSector = bottomOfBombSector + 1;
+
+            // If not on the left side of the grid
+            if(randomBombSectorIndex % numberOfRowsAndColumns !== 0) {
+                if(topOfBombSector >= 0) {
+                    proxyBombsCounters[topLeftOfBombSector]++;
+                }
+                proxyBombsCounters[leftOfBombSector]++;
+                if(bottomOfBombSector < proxyBombsCounters.length) {
+                    proxyBombsCounters[bottomLeftOfBombSector]++;
+                }
+            }
+
+            if(topOfBombSector >= 0) {
+                proxyBombsCounters[topOfBombSector]++;
+            }
+            if(bottomOfBombSector < proxyBombsCounters.length) {
+                proxyBombsCounters[bottomOfBombSector]++;
+            }
+
+            // If not on the right side of the grid
+            if((randomBombSectorIndex + 1) % numberOfRowsAndColumns !== 0) {
+                if(topOfBombSector >= 0) {
+                    proxyBombsCounters[topRightOfBombSector]++;
+                }
+                proxyBombsCounters[rightOfBombSector]++;
+                if(bottomOfBombSector < proxyBombsCounters.length) {
+                    proxyBombsCounters[bottomRightOfBombSector]++;
+                }
+            }
         }
     }
 
