@@ -80,6 +80,9 @@ function createLandfield (minefieldElement , numberOfSectors) {
 
             if(bombPositions.includes(parseInt(self.dataset.sectorIndex))) {
                 self.classList.add('exploded');
+            } else {
+                self.innerHTML = proxyBombsCounters[i];
+                self.classList.add(`bombs-in-proximity-${proxyBombsCounters[i]}`);
             }
         });
 
