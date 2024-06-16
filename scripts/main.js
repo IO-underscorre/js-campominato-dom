@@ -20,6 +20,7 @@ difficultyForm.addEventListener('submit' , function () {
     }
 
     // Resetting the page to default
+    minefield.style.pointerEvents = 'auto';
     minefield.innerHTML = '';
     score = 0;
     scoreContainer.innerHTML = score;
@@ -94,8 +95,8 @@ function createLandfield (minefieldElement , numberOfSectors) {
             if(bombPositions.includes(parseInt(self.dataset.sectorIndex))) {
                 // Changing the style of the div to represnt exploaded bomb
                 self.classList.add('exploded');
-                // Printing the bomb icon
-                self.innerHTML = '<i class="fa-solid fa-bomb"></i>';
+                // Disabling the possibility to click more sectors
+                minefield.style.pointerEvents = 'none';
             } else {
                 // Changing the style of the div to represnt checking it
                 self.classList.add(`bombs-in-proximity-${proxyBombsCounters[i]}`);
