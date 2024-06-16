@@ -1,6 +1,10 @@
 const difficultyForm = document.getElementById('difficulty-form');
 const difficultySettings = document.getElementById('dificulty-settings');
 const minefield = document.getElementById('minefield');
+const scoreContainer = document.getElementById('score');
+
+let score = 0;
+scoreContainer.innerHTML = score;
 
 difficultyForm.addEventListener('submit' , function () {
     let sectorsNumber;
@@ -12,6 +16,9 @@ difficultyForm.addEventListener('submit' , function () {
     } else {
         sectorsNumber = 49;
     }
+
+    score = 0;
+    scoreContainer.innerHTML = score;
 
     createLandfield(minefield , sectorsNumber);
 });
@@ -84,6 +91,8 @@ function createLandfield (minefieldElement , numberOfSectors) {
             } else {
                 self.innerHTML = proxyBombsCounters[i];
                 self.classList.add(`bombs-in-proximity-${proxyBombsCounters[i]}`);
+                score++;
+                scoreContainer.innerHTML = score;
             }
         });
 
