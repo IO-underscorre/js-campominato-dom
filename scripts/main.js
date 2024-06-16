@@ -26,20 +26,15 @@ difficultyForm.addEventListener('submit' , function () {
     scoreContainer.innerHTML = score;
     scoreContainer.style.textDecoration = 'none';
 
-    createLandfield(minefield , sectorsNumber);
-});
+    const numberOfRowsAndColumns = Math.sqrt(sectorsNumber);
+    minefield.style.gridTemplate = `repeat(${numberOfRowsAndColumns} , 1fr) / repeat(${numberOfRowsAndColumns} , 1fr)`;
 
-
-//  Clear elements inside a minefield contrainer, then append a number of landfield sector's div
-function createLandfield (minefieldElement , numberOfSectors) {
-    const numberOfRowsAndColumns = Math.sqrt(numberOfSectors);
-    minefieldElement.style.gridTemplate = `repeat(${numberOfRowsAndColumns} , 1fr) / repeat(${numberOfRowsAndColumns} , 1fr)`;
-
+    // Creating an array with bomb positions and one with proximity bombs counter
     const bombPositions = [];
-    const proxyBombsCounters = new Array(numberOfSectors).fill(0);
+    const proxyBombsCounters = new Array(sectorsNumber).fill(0);
 
     while(bombPositions.length < numberOfBombs) {
-        let randomBombSectorIndex = randomNumberGenerator(1 , numberOfSectors);
+        let randomBombSectorIndex = randomNumberGenerator(1 , sectorsNumber);
 
         if(!bombPositions.includes(randomBombSectorIndex)) {
             bombPositions.push(randomBombSectorIndex);
@@ -80,9 +75,9 @@ function createLandfield (minefieldElement , numberOfSectors) {
             }
         }
     }
-    
-    // Creating the sectors that compose the landfield
-    for (let i = 0 ; i < numberOfSectors ; i++) {
+
+    // Creating the sectors that compose the minefield
+    for (let i = 0 ; i < sectorsNumber ; i++) {
         // Creating the sector
         const minefieldSector = createElementWithClass('div' , 'minefield-sector');
         // Assign the index to the sector as a data attribute
@@ -108,7 +103,7 @@ function createLandfield (minefieldElement , numberOfSectors) {
                 scoreContainer.innerHTML = score;
 
                 // If every not-bomb sectors have been checked
-                if(score === numberOfSectors - numberOfBombs){
+                if(score === sectorsNumber - numberOfBombs){
                     endCurrentGame(bombPositions);
                 }
             }
@@ -126,9 +121,9 @@ function createLandfield (minefieldElement , numberOfSectors) {
             }
         });
 
-        minefieldElement.append(minefieldSector);
+        minefield.append(minefieldSector);
     }
-}
+});
 
 
 // End game
