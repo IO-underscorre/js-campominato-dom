@@ -120,10 +120,55 @@ input:active {
     height: 100%;
     border: 6px solid;
     border-color: #ffffffc0 #000000c0 #000000c0 #ffffffc0;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .checked {
     background-color: unset;
     box-shadow: none;
     border: 2px solid #00000080;
+}
+
+.checked.exploded {
+    background-color: #ac0000;
+    color: var(--page-background-color);
+}
+
+.bombs-in-proximity-0 {
+    color: #999999;
+}
+
+.bombs-in-proximity-1 {
+    color: #55dfdf;
+}
+
+.bombs-in-proximity-2 {
+    color: #3ee71d;
+}
+
+.bombs-in-proximity-3 {
+    color: #c5b803;
+}
+
+.bombs-in-proximity-4 {
+    color: #dd9000;
+}
+
+.bombs-in-proximity-5 {
+    color: #e95e01;
+}
+
+.bombs-in-proximity-6 {
+    color: #f70000;
+}
+
+.bombs-in-proximity-7 {
+    color: #910000;
+}
+
+.bombs-in-proximity-8 {
+    color: #410101;
 }
