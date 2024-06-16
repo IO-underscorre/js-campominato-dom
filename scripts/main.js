@@ -116,7 +116,13 @@ function createLandfield (minefieldElement , numberOfSectors) {
         
         minefieldSector.addEventListener('contextmenu' , function () {
             if(!this.classList.contains('checked')) {
-                this.innerHTML = '<i class="fa-solid fa-flag"></i>';
+                if(!this.classList.contains('flagged')) {
+                    this.innerHTML = '<i class="fa-solid fa-flag"></i>';
+                    this.classList.add('flagged');
+                } else {
+                    this.innerHTML = '';
+                    this.classList.remove('flagged');
+                }
             }
         });
 
