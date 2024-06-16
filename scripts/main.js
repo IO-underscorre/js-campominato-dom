@@ -95,9 +95,7 @@ difficultyForm.addEventListener('submit' , function () {
                 self.classList.add('exploded');
             } else {
                 // Changing the style of the div to represnt checking it
-                self.classList.add('checked');
-                // Changing the style of the div to represnt checking it
-                self.classList.add(`bombs-in-proximity-${proxyBombsCounters[i]}`);
+                self.classList.add('checked' , `bombs-in-proximity-${proxyBombsCounters[i]}`);
                 // Printing how many bombs are near the sector
                 self.innerHTML = proxyBombsCounters[i];
                 // Increasing the score and printing it in the score section
