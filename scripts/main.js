@@ -43,6 +43,7 @@ function createLandfield (minefieldElement , numberOfSectors) {
             const topOfBombSector = randomBombSectorIndex - numberOfRowsAndColumns , bottomOfBombSector = randomBombSectorIndex + numberOfRowsAndColumns , leftOfBombSector = randomBombSectorIndex - 1 , rightOfBombSector = randomBombSectorIndex + 1;
             const topLeftOfBombSector = topOfBombSector - 1 , topRightOfBombSector = topOfBombSector + 1 , bottomLeftOfBombSector = bottomOfBombSector - 1 , bottomRightOfBombSector = bottomOfBombSector + 1;
 
+            // Increasing of 1 the counter for every sector near the current bomb div
             // If not on the left side of the grid
             if(randomBombSectorIndex % numberOfRowsAndColumns !== 0) {
                 if(topOfBombSector >= 0) {
@@ -76,21 +77,29 @@ function createLandfield (minefieldElement , numberOfSectors) {
 
     minefield.innerHTML = '';
     
+    // Creating the sectors that compose the landfield
     for (let i = 0 ; i < numberOfSectors ; i++) {
+        // Creating the sector
         const minefieldSector = createElementWithClass('div' , 'minefield-sector');
+        // Assign the index to the sector as a data attribute
         minefieldSector.setAttribute('data-sector-index' , i + 1);
-
+        
         minefieldSector.addEventListener('click' , function () {
             const self = this;
 
             self.classList.add('checked');
 
             if(bombPositions.includes(parseInt(self.dataset.sectorIndex))) {
-                self.innerHTML = '<i class="fa-solid fa-bomb"></i>';
+                // Changing the style of the div to represnt exploaded bomb
                 self.classList.add('exploded');
+                // Printing the bomb icon
+                self.innerHTML = '<i class="fa-solid fa-bomb"></i>';
             } else {
-                self.innerHTML = proxyBombsCounters[i];
+                // Changing the style of the div to represnt checking it
                 self.classList.add(`bombs-in-proximity-${proxyBombsCounters[i]}`);
+                // Printing how many bombs are near the sector
+                self.innerHTML = proxyBombsCounters[i];
+                // Increasing the score and printing it in the score section
                 score++;
                 scoreContainer.innerHTML = score;
             }
