@@ -13,6 +13,10 @@
     padding: 0;
 }
 
+menu {
+    list-style: none;
+}
+
 /* Page wrapper */
 .page-wrapper {
     width: 100%;
