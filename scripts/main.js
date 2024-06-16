@@ -115,6 +115,12 @@ function createLandfield (minefieldElement , numberOfSectors) {
                 scoreContainer.innerHTML = score;
             }
         });
+        
+        minefieldSector.addEventListener('contextmenu' , function () {
+            if(!this.classList.contains('checked')) {
+                this.innerHTML = '<i class="fa-solid fa-flag"></i>';
+            }
+        });
 
         minefieldElement.append(minefieldSector);
     }
