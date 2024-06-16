@@ -3,6 +3,8 @@ const difficultySettings = document.getElementById('dificulty-settings');
 const minefield = document.getElementById('minefield');
 const scoreContainer = document.getElementById('score');
 
+const numberOfBombs = 16;
+
 let score = 0;
 scoreContainer.innerHTML = score;
 
@@ -32,7 +34,7 @@ function createLandfield (minefieldElement , numberOfSectors) {
     const bombPositions = [];
     const proxyBombsCounters = new Array(numberOfSectors).fill(0);
 
-    while(bombPositions.length < 16) {
+    while(bombPositions.length < numberOfBombs) {
         let randomBombSectorIndex = randomNumberGenerator(1 , numberOfSectors);
 
         if(!bombPositions.includes(randomBombSectorIndex)) {
