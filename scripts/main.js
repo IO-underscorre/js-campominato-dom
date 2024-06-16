@@ -24,6 +24,7 @@ difficultyForm.addEventListener('submit' , function () {
     minefield.innerHTML = '';
     score = 0;
     scoreContainer.innerHTML = score;
+    scoreContainer.style.textDecoration = 'none';
 
     createLandfield(minefield , sectorsNumber);
 });
@@ -90,19 +91,11 @@ function createLandfield (minefieldElement , numberOfSectors) {
         minefieldSector.addEventListener('click' , function () {
             const self = this;
 
-            if(bombPositions.includes(parseInt(self.dataset.sectorIndex))) {
-                for(let j = 0 ; j < numberOfBombs ; j++) {
-                    const bombSector = document.querySelector(`[data-sector-index="${bombPositions[j]}"]`);
-                    // Changing the style of all the bombs divs to show bombs locations
-                    bombSector.classList.add('checked' , 'bomb');
-                    // Printing the bomb icon on all of the bomb divs
-                    bombSector.innerHTML = '<i class="fa-solid fa-bomb"></i>';
-                }
+            if(bombPositions.includes(parseInt(self.dataset.sectorIndex))) {      
+                endCurrentGame(bombPositions);
                 
                 // Changing the style of the current div to represnt exploaded bomb
                 self.classList.add('exploded');
-                // Disabling the possibility to click more sectors
-                minefield.style.pointerEvents = 'none';
             } else {
                 // Changing the style of the div to represnt checking it
                 self.classList.add('checked');
@@ -113,6 +106,11 @@ function createLandfield (minefieldElement , numberOfSectors) {
                 // Increasing the score and printing it in the score section
                 score++;
                 scoreContainer.innerHTML = score;
+
+                // If every not-bomb sectors have been checked
+                if(score === numberOfSectors - numberOfBombs){
+                    endCurrentGame(bombPositions);
+                }
             }
         });
         
@@ -124,6 +122,22 @@ function createLandfield (minefieldElement , numberOfSectors) {
 
         minefieldElement.append(minefieldSector);
     }
+}
+
+
+// End game
+function endCurrentGame(bombPositionsArray) {
+    for(let i = 0 ; i < numberOfBombs ; i++) {
+        const bombSector = document.querySelector(`[data-sector-index="${bombPositionsArray[i]}"]`);
+        // Changing the style of all the bombs divs to show bombs locations
+        bombSector.classList.add('checked' , 'bomb');
+        // Printing the bomb icon on all of the bomb divs
+        bombSector.innerHTML = '<i class="fa-solid fa-bomb"></i>';
+    }
+    // Disabling the possibility to click more sectors
+    minefield.style.pointerEvents = 'none';
+    // Changing the text decoration to flag the end of the game
+    scoreContainer.style.textDecoration = 'underline';
 }
 
 
