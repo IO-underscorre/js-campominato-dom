@@ -90,14 +90,22 @@ function createLandfield (minefieldElement , numberOfSectors) {
         minefieldSector.addEventListener('click' , function () {
             const self = this;
 
-            self.classList.add('checked');
-
             if(bombPositions.includes(parseInt(self.dataset.sectorIndex))) {
-                // Changing the style of the div to represnt exploaded bomb
+                for(let j = 0 ; j < numberOfBombs ; j++) {
+                    const bombSector = document.querySelector(`[data-sector-index="${bombPositions[j]}"]`);
+                    // Changing the style of all the bombs divs to show bombs locations
+                    bombSector.classList.add('checked' , 'bomb');
+                    // Printing the bomb icon on all of the bomb divs
+                    bombSector.innerHTML = '<i class="fa-solid fa-bomb"></i>';
+                }
+                
+                // Changing the style of the current div to represnt exploaded bomb
                 self.classList.add('exploded');
                 // Disabling the possibility to click more sectors
                 minefield.style.pointerEvents = 'none';
             } else {
+                // Changing the style of the div to represnt checking it
+                self.classList.add('checked');
                 // Changing the style of the div to represnt checking it
                 self.classList.add(`bombs-in-proximity-${proxyBombsCounters[i]}`);
                 // Printing how many bombs are near the sector
