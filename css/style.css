@@ -135,9 +135,12 @@ input:active {
     border: 2px solid #00000080;
 }
 
+.checked.bomb {
+    color: var(--page-background-color);
+}
+
 .checked.exploded {
     background-color: #ac0000;
-    color: var(--page-background-color);
 }
 
 .bombs-in-proximity-0 {
