@@ -86,6 +86,8 @@ difficultyForm.addEventListener('submit' , function () {
         minefieldSector.addEventListener('click' , function () {
             const self = this;
 
+            self.classList.remove('flagged');
+
             if(bombPositions.includes(parseInt(self.dataset.sectorIndex))) {      
                 endCurrentGame(bombPositions);
                 
