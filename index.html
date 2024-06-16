@@ -18,21 +18,32 @@
                     Minesweeper
                 </h1>
     
-                <form id="difficulty-form" onsubmit="return false">
-                    <div class="input-group">
-                        <label for="dificulty-setting">
-                            Select the difficulty:
-                        </label>
-                        <select class="custom-input" id="dificulty-settings" required>
-                            <option value="" selected>Select</option>
-                            <option value="easy">Easy</option>
-                            <option value="medium">Medium</option>
-                            <option value="hard">Hard</option>
-                        </select>
-                    </div>
+                <menu>
+                    <ul class="score-container">
+                        <span>
+                            SCORE:
+                        </span>
+                        <span id="score"></span>
+                    </ul>
 
-                    <input class="custom-input" type="submit" value="Play">
-                </form>
+                    <ul>
+                        <form id="difficulty-form" onsubmit="return false">
+                            <div class="input-group">
+                                <label for="dificulty-setting">
+                                    Select the difficulty:
+                                </label>
+                                <select class="custom-input" id="dificulty-settings" required>
+                                    <option value="" selected>Select</option>
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select>
+                            </div>
+        
+                            <input class="custom-input" type="submit" value="Play">
+                        </form>
+                    </ul>
+                </menu>
             </header>
 
             <!-- Minefield -->
