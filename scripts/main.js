@@ -19,6 +19,8 @@ difficultyForm.addEventListener('submit' , function () {
         sectorsNumber = 49;
     }
 
+    // Resetting the page to default
+    minefield.innerHTML = '';
     score = 0;
     scoreContainer.innerHTML = score;
 
@@ -76,8 +78,6 @@ function createLandfield (minefieldElement , numberOfSectors) {
             }
         }
     }
-
-    minefield.innerHTML = '';
     
     // Creating the sectors that compose the landfield
     for (let i = 0 ; i < numberOfSectors ; i++) {
