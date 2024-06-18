@@ -94,17 +94,19 @@ difficultyForm.addEventListener('submit' , function () {
                 // Changing the style of the current div to represnt exploaded bomb
                 self.classList.add('exploded');
             } else {
-                // Changing the style of the div to represnt checking it
-                self.classList.add('checked' , `bombs-in-proximity-${proxyBombsCounters[i]}`);
-                // Printing how many bombs are near the sector
-                self.innerHTML = proxyBombsCounters[i];
-                // Increasing the score and printing it in the score section
-                score++;
-                scoreContainer.innerHTML = score;
-
-                // If every not-bomb sectors have been checked
-                if(score === sectorsNumber - numberOfBombs){
-                    endCurrentGame(bombPositions);
+                if(!self.classList.contains('checked')) {
+                    // Changing the style of the div to represnt checking it
+                    self.classList.add('checked' , `bombs-in-proximity-${proxyBombsCounters[i]}`);
+                    // Printing how many bombs are near the sector
+                    self.innerHTML = proxyBombsCounters[i];
+                    // Increasing the score and printing it in the score section
+                    score++;
+                    scoreContainer.innerHTML = score;
+    
+                    // If every not-bomb sectors have been checked
+                    if(score === sectorsNumber - numberOfBombs){
+                        endCurrentGame(bombPositions);
+                    }
                 }
             }
         });
