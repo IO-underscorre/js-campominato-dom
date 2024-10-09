@@ -8,12 +8,12 @@ const numberOfBombs = 16;
 let score = 0;
 scoreContainer.innerHTML = score;
 
-difficultyForm.addEventListener('submit' , function () {
+difficultyForm.addEventListener('submit', function () {
     let sectorsNumber;
 
-    if(difficultySettings.value === 'easy') {
+    if (difficultySettings.value === 'easy') {
         sectorsNumber = 100;
-    } else if(difficultySettings.value === 'medium') {
+    } else if (difficultySettings.value === 'medium') {
         sectorsNumber = 81;
     } else {
         sectorsNumber = 49;
@@ -33,43 +33,43 @@ difficultyForm.addEventListener('submit' , function () {
     const bombPositions = [];
     const proxyBombsCounters = new Array(sectorsNumber).fill(0);
 
-    while(bombPositions.length < numberOfBombs) {
-        let randomBombSectorIndex = randomNumberGenerator(1 , sectorsNumber);
+    while (bombPositions.length < numberOfBombs) {
+        let randomBombSectorIndex = randomNumberGenerator(1, sectorsNumber);
 
-        if(!bombPositions.includes(randomBombSectorIndex)) {
+        if (!bombPositions.includes(randomBombSectorIndex)) {
             bombPositions.push(randomBombSectorIndex);
 
             randomBombSectorIndex--;
 
-            const topOfBombSector = randomBombSectorIndex - numberOfRowsAndColumns , bottomOfBombSector = randomBombSectorIndex + numberOfRowsAndColumns , leftOfBombSector = randomBombSectorIndex - 1 , rightOfBombSector = randomBombSectorIndex + 1;
-            const topLeftOfBombSector = topOfBombSector - 1 , topRightOfBombSector = topOfBombSector + 1 , bottomLeftOfBombSector = bottomOfBombSector - 1 , bottomRightOfBombSector = bottomOfBombSector + 1;
+            const topOfBombSector = randomBombSectorIndex - numberOfRowsAndColumns, bottomOfBombSector = randomBombSectorIndex + numberOfRowsAndColumns, leftOfBombSector = randomBombSectorIndex - 1, rightOfBombSector = randomBombSectorIndex + 1;
+            const topLeftOfBombSector = topOfBombSector - 1, topRightOfBombSector = topOfBombSector + 1, bottomLeftOfBombSector = bottomOfBombSector - 1, bottomRightOfBombSector = bottomOfBombSector + 1;
 
             // Increasing of 1 the counter for every sector near the current bomb div
             // If not on the left side of the grid
-            if(randomBombSectorIndex % numberOfRowsAndColumns !== 0) {
-                if(topOfBombSector >= 0) {
+            if (randomBombSectorIndex % numberOfRowsAndColumns !== 0) {
+                if (topOfBombSector >= 0) {
                     proxyBombsCounters[topLeftOfBombSector]++;
                 }
                 proxyBombsCounters[leftOfBombSector]++;
-                if(bottomOfBombSector < proxyBombsCounters.length) {
+                if (bottomOfBombSector < proxyBombsCounters.length) {
                     proxyBombsCounters[bottomLeftOfBombSector]++;
                 }
             }
 
-            if(topOfBombSector >= 0) {
+            if (topOfBombSector >= 0) {
                 proxyBombsCounters[topOfBombSector]++;
             }
-            if(bottomOfBombSector < proxyBombsCounters.length) {
+            if (bottomOfBombSector < proxyBombsCounters.length) {
                 proxyBombsCounters[bottomOfBombSector]++;
             }
 
             // If not on the right side of the grid
-            if((randomBombSectorIndex + 1) % numberOfRowsAndColumns !== 0) {
-                if(topOfBombSector >= 0) {
+            if ((randomBombSectorIndex + 1) % numberOfRowsAndColumns !== 0) {
+                if (topOfBombSector >= 0) {
                     proxyBombsCounters[topRightOfBombSector]++;
                 }
                 proxyBombsCounters[rightOfBombSector]++;
-                if(bottomOfBombSector < proxyBombsCounters.length) {
+                if (bottomOfBombSector < proxyBombsCounters.length) {
                     proxyBombsCounters[bottomRightOfBombSector]++;
                 }
             }
@@ -77,43 +77,45 @@ difficultyForm.addEventListener('submit' , function () {
     }
 
     // Creating the sectors that compose the minefield
-    for (let i = 0 ; i < sectorsNumber ; i++) {
+    for (let i = 0; i < sectorsNumber; i++) {
         // Creating the sector
-        const minefieldSector = createElementWithClass('div' , 'minefield-sector');
+        const minefieldSector = createElementWithClass('div', 'minefield-sector');
         // Assign the index to the sector as a data attribute
-        minefieldSector.setAttribute('data-sector-index' , i + 1);
-        
-        minefieldSector.addEventListener('click' , function () {
+        minefieldSector.setAttribute('data-sector-index', i + 1);
+
+        minefieldSector.addEventListener('click', function () {
             const self = this;
 
             self.classList.remove('flagged');
 
-            if(bombPositions.includes(parseInt(self.dataset.sectorIndex))) {      
+            if (bombPositions.includes(parseInt(self.dataset.sectorIndex))) {
                 endCurrentGame(bombPositions);
-                
+
                 // Changing the style of the current div to represnt exploaded bomb
                 self.classList.add('exploded');
             } else {
-                if(!self.classList.contains('checked')) {
+                if (!self.classList.contains('checked')) {
                     // Changing the style of the div to represnt checking it
-                    self.classList.add('checked' , `bombs-in-proximity-${proxyBombsCounters[i]}`);
+                    self.classList.add('checked', `bombs-in-proximity-${proxyBombsCounters[i]}`);
                     // Printing how many bombs are near the sector
                     self.innerHTML = proxyBombsCounters[i];
                     // Increasing the score and printing it in the score section
                     score++;
                     scoreContainer.innerHTML = score;
-    
+
                     // If every not-bomb sectors have been checked
-                    if(score === sectorsNumber - numberOfBombs){
+                    if (score === sectorsNumber - numberOfBombs) {
                         endCurrentGame(bombPositions);
                     }
                 }
             }
         });
-        
-        minefieldSector.addEventListener('contextmenu' , function () {
-            if(!this.classList.contains('checked')) {
-                if(!this.classList.contains('flagged')) {
+
+        minefieldSector.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+
+            if (!this.classList.contains('checked')) {
+                if (!this.classList.contains('flagged')) {
                     this.innerHTML = '<i class="fa-solid fa-flag"></i>';
                     this.classList.add('flagged');
                 } else {
@@ -130,10 +132,10 @@ difficultyForm.addEventListener('submit' , function () {
 
 // End game
 function endCurrentGame(bombPositionsArray) {
-    for(let i = 0 ; i < numberOfBombs ; i++) {
+    for (let i = 0; i < numberOfBombs; i++) {
         const bombSector = document.querySelector(`[data-sector-index="${bombPositionsArray[i]}"]`);
         // Changing the style of all the bombs divs to show bombs locations
-        bombSector.classList.add('checked' , 'bomb');
+        bombSector.classList.add('checked', 'bomb');
         // Printing the bomb icon on all of the bomb divs
         bombSector.innerHTML = '<i class="fa-solid fa-bomb"></i>';
     }
@@ -145,7 +147,7 @@ function endCurrentGame(bombPositionsArray) {
 
 
 // Create an element with a class
-function createElementWithClass(elementTag , className) {
+function createElementWithClass(elementTag, className) {
     const element = document.createElement(elementTag);
     element.classList.add(className);
     return element;
@@ -153,6 +155,6 @@ function createElementWithClass(elementTag , className) {
 
 
 // Random number generator between max and min (included)
-function randomNumberGenerator(min , max) {
+function randomNumberGenerator(min, max) {
     return Math.floor((Math.random()) * (max - min + 1)) + min;
 }

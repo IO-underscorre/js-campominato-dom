@@ -29,11 +29,11 @@ menu {
     overflow: auto;
 }
 
-.page-wrapper > div {
+.page-wrapper>div {
     overflow: auto;
 }
 
-.page-wrapper > div > * {
+.page-wrapper>div>* {
     margin: 1.5rem auto;
     width: 95%;
     max-width: 80vh;
@@ -45,7 +45,7 @@ h1 {
     margin-bottom: 1rem;
 }
 
-header > menu {
+header>menu {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
